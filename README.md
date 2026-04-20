@@ -1,165 +1,145 @@
-# </> DevBoard — Developer Blog Platform (MERN Stack)
+<div align="center">
 
-A full-stack developer blogging platform where devs can write, publish, and explore technical articles.
+# 🚀 DevBoard
 
-## 🚀 Features
+### Developer Blog Platform — Built with MERN Stack
 
-- **JWT Auth** — Register / Login / Protected routes
-- **Full CRUD** — Create, Read, Update, Delete blog posts
-- **Image Upload** — Cover images (local dev / Cloudinary in prod)
-- **Like Posts** — Toggle likes, count shown on cards
-- **Search & Filter** — Search by title/content, filter by tags
-- **Pagination** — 9 posts per page
-- **Developer Profile** — Bio, GitHub, Website, Skills, Avatar
-- **Auto Read Time** — Calculated from word count
-- **Auto Slug** — Generated from post title
-- **Responsive UI** — Dark theme, works on all screens
+A full-stack blogging platform where developers can write,
+publish, and explore technical articles.
 
-## 🏗️ Tech Stack
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit-6366f1?style=for-the-badge&logo=vercel)](https://devboard.vercel.app)
+[![Backend](https://img.shields.io/badge/API-Live-22c55e?style=for-the-badge&logo=render)](https://devboard-api.onrender.com/api/health)
 
-| Layer    | Tech                                      |
-|----------|-------------------------------------------|
-| Frontend | React 18, React Router v6, Axios          |
-| Backend  | Node.js, Express.js                       |
-| Database | MongoDB Atlas + Mongoose                  |
-| Auth     | JWT + bcryptjs                            |
-| Upload   | Multer (dev) / Cloudinary (prod)          |
+![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=flat-square&logo=mongodb&logoColor=white)
+![Express](https://img.shields.io/badge/Express-000000?style=flat-square&logo=express&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB)
+![Node](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-000000?style=flat-square&logo=jsonwebtokens&logoColor=white)
 
-## ⚙️ Run Locally
-
-### Prerequisites
-- Node.js v18+
-- MongoDB Atlas free account → [cloud.mongodb.com](https://cloud.mongodb.com)
-
-### 1. Install dependencies
-
-```bash
-unzip devboard.zip && cd devboard
-npm run install-all
-```
-
-### 2. Configure environment
-
-```bash
-cp server/.env.example server/.env
-```
-
-Edit `server/.env`:
-```
-MONGODB_URI=mongodb+srv://<user>:<pass>@cluster0.xxxxx.mongodb.net/devboard
-JWT_SECRET=anylongrandomsecretstring
-CLIENT_URL=http://localhost:3000
-```
-
-### 3. Start development servers
-
-```bash
-npm run dev
-```
-
-- **Frontend:** http://localhost:3000  
-- **Backend:** http://localhost:5000  
-- **API Health:** http://localhost:5000/api/health
+</div>
 
 ---
 
-## 📁 Project Structure
+## ✨ Features
+
+| Feature | Description |
+|--------|-------------|
+| 🔐 JWT Auth | Register, Login, protected routes |
+| 📝 Full CRUD | Create, Read, Update, Delete posts |
+| 🖼️ Image Upload | Multer / Cloudinary |
+| ❤️ Like Posts | Toggle likes |
+| 🔍 Search & Filter | By title/content/tags |
+| 📄 Pagination | 9 posts/page |
+| 👤 Profile | Bio, GitHub, skills |
+| ⏱️ Read Time | Auto calculated |
+| 🔗 Slug | Auto-generated |
+| 🌙 UI | Dark responsive |
+
+---
+
+## 🏗️ Tech Stack
+
+| Layer | Tech |
+|------|------|
+| Frontend | React 18, Router, Axios |
+| Backend | Node.js, Express |
+| DB | MongoDB + Mongoose |
+| Auth | JWT + bcrypt |
+| Upload | Multer / Cloudinary |
+
+---
+
+## 📁 Structure
 
 ```
 devboard/
 ├── server/
-│   ├── controllers/       authController.js, postController.js, userController.js
-│   ├── middleware/        auth.js (JWT), upload.js (Multer/Cloudinary)
-│   ├── models/            User.js, Post.js
-│   ├── routes/            auth.js, posts.js, users.js
-│   ├── uploads/           local image storage (gitignored)
+│   ├── controllers/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
 │   └── index.js
 └── client/
     └── src/
-        ├── components/    Navbar.js, PostCard.js
-        ├── context/       AuthContext.js
-        ├── pages/         Home, Login, Register, PostDetail, WritePost, Dashboard, Profile
-        └── utils/         api.js (Axios instance)
+        ├── components/
+        ├── context/
+        ├── pages/
+        └── utils/
 ```
 
 ---
 
-## 🔌 API Reference
+## 🔌 API
 
 ### Auth
-| Method | Endpoint          | Auth | Description        |
-|--------|-------------------|------|--------------------|
-| POST   | /api/auth/register | -   | Register user      |
-| POST   | /api/auth/login    | -   | Login, get token   |
-| GET    | /api/auth/me       | ✅  | Current user info  |
+- POST `/api/auth/register`
+- POST `/api/auth/login`
+- GET `/api/auth/me`
 
 ### Posts
-| Method | Endpoint              | Auth | Description              |
-|--------|-----------------------|------|--------------------------|
-| GET    | /api/posts            | -    | Get posts (search/filter)|
-| GET    | /api/posts/tags       | -    | Get popular tags         |
-| GET    | /api/posts/:slug      | -    | Get single post          |
-| POST   | /api/posts            | ✅   | Create post              |
-| PUT    | /api/posts/:id        | ✅   | Update your post         |
-| DELETE | /api/posts/:id        | ✅   | Delete your post         |
-| POST   | /api/posts/:id/like   | ✅   | Toggle like              |
+- GET `/api/posts`
+- GET `/api/posts/:slug`
+- POST `/api/posts`
+- PUT `/api/posts/:id`
+- DELETE `/api/posts/:id`
+- POST `/api/posts/:id/like`
 
 ### Users
-| Method | Endpoint           | Auth | Description     |
-|--------|--------------------|------|-----------------|
-| GET    | /api/users/:id     | -    | Get user profile|
-| PUT    | /api/users/profile | ✅   | Update profile  |
+- GET `/api/users/:id`
+- PUT `/api/users/profile`
 
 ---
 
-## 🐙 Push to GitHub
+## ⚙️ Run Locally
 
+### 1. Install
 ```bash
+git clone https://github.com/YOUR_USERNAME/devboard.git
 cd devboard
-git init
-git add .
-git commit -m "feat: DevBoard MERN blog platform"
-git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/devboard.git
-git push -u origin main
+npm run install-all
 ```
 
----
+### 2. Env
+```bash
+cp server/.env.example server/.env
+```
 
-## ☁️ Deploy (Free)
+```
+MONGODB_URI=your_uri
+JWT_SECRET=your_secret
+CLIENT_URL=http://localhost:3000
+```
 
-### Backend → Render.com
+### 3. Run
+```bash
+npm run dev
+```
 
-1. [render.com](https://render.com) → New Web Service → Connect GitHub
-2. **Root Directory:** `server`
-3. **Build:** `npm install` | **Start:** `npm start`
-4. Add env vars: `MONGODB_URI`, `JWT_SECRET`, `CLIENT_URL` (Vercel URL after step 2)
-5. Copy the deployed URL (e.g. `https://devboard-api.onrender.com`)
-
-### Frontend → Vercel
-
-1. [vercel.com](https://vercel.com) → New Project → Import GitHub
-2. **Root Directory:** `client` | **Framework:** Create React App
-3. Add env var: `REACT_APP_API_URL=https://devboard-api.onrender.com`
-4. Update `client/src/utils/api.js`:
-   ```js
-   baseURL: process.env.REACT_APP_API_URL + '/api' || '/api'
-   ```
-5. Deploy → copy Vercel URL → paste into Render's `CLIENT_URL`
-
-### Optional: Image Uploads via Cloudinary
-
-1. Free account at [cloudinary.com](https://cloudinary.com)
-2. Add to Render env vars: `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`
+Frontend → http://localhost:3000  
+Backend → http://localhost:5000  
 
 ---
 
-## 📝 What Recruiters Will See
+## ☁️ Deploy
 
-- Clean MVC architecture (models / controllers / routes)
-- JWT auth with protected routes (both FE + BE)
-- Custom React Context + hooks
-- File upload with multer + optional Cloudinary
-- Search, filter, pagination
-- Responsive dark UI
+### Backend (Render)
+- Root: `server`
+- Build: `npm install`
+- Start: `npm start`
 
+### Frontend (Vercel)
+- Root: `client`
+
+---
+
+## 📝 License
+MIT
+
+---
+
+<div align="center">
+
+Made with ❤️  
+⭐ Star the repo
+
+</div>
