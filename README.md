@@ -7,7 +7,6 @@
 A full-stack blogging platform where developers can write,
 publish, and explore technical articles.
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit-6366f1?style=for-the-badge&logo=vercel)](https://devboard.vercel.app)
 [![Backend](https://img.shields.io/badge/API-Live-22c55e?style=for-the-badge&logo=render)](https://devboard-api.onrender.com/api/health)
 
 ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=flat-square&logo=mongodb&logoColor=white)
