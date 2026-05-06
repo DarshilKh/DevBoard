@@ -22,21 +22,33 @@ const Home = () => {
       if (search) params.set('search', search);
       if (tag) params.set('tag', tag);
       const { data } = await api.get(`/posts?${params}`);
-      setPosts(data.posts);
-      setTotal(data.total);
-      setPages(data.pages);
-    } catch {}
-    finally { setLoading(false); }
+      setPosts(Array.isArray(data.posts) ? data.posts : []);
+      setTotal(data.total || 0);
+      setPages(data.pages || 1);
+    } catch {
+      setPosts([]);
+      setTotal(0);
+      setPages(1);
+    } finally {
+      setLoading(false);
+    }
   }, [search, tag, page]);
 
-  useEffect(() => { fetchPosts(); }, [fetchPosts]);
   useEffect(() => {
-    api.get('/posts/tags').then(r => setTags(r.data.tags)).catch(() => {});
+    fetchPosts();
+  }, [fetchPosts]);
+
+  useEffect(() => {
+    api
+      .get('/posts/tags')
+      .then((r) => setTags(Array.isArray(r.data.tags) ? r.data.tags : []))
+      .catch(() => setTags([]));
   }, []);
 
   const setParam = (key, val) => {
     const p = new URLSearchParams(searchParams);
-    if (val) p.set(key, val); else p.delete(key);
+    if (val) p.set(key, val);
+    else p.delete(key);
     p.delete('page');
     setSearchParams(p);
   };
@@ -47,15 +59,22 @@ const Home = () => {
       <section className="hero">
         <div className="hero-inner">
           <div className="hero-badge">Developer Community</div>
-          <h1 className="hero-title">Where Developers<br /><span className="gradient-text">Share & Grow</span></h1>
-          <p className="hero-sub">Read, write, and explore dev articles. Share your knowledge with the world.</p>
+          <h1 className="hero-title">
+            Where Developers<br />
+            <span className="gradient-text">Share & Grow</span>
+          </h1>
+          <p className="hero-sub">
+            Read, write, and explore dev articles. Share your knowledge with the world.
+          </p>
           <div className="hero-search">
             <span className="search-icon">🔍</span>
             <input
               type="text"
               placeholder="Search posts, tags, topics..."
               defaultValue={search}
-              onKeyDown={e => e.key === 'Enter' && setParam('search', e.target.value)}
+              onKeyDown={(e) =>
+                e.key === 'Enter' && setParam('search', e.target.value)
+              }
               className="search-input"
             />
           </div>
@@ -71,52 +90,75 @@ const Home = () => {
               <button
                 className={`tag-btn ${!tag ? 'active' : ''}`}
                 onClick={() => setParam('tag', '')}
-              >All Posts <span>{total}</span></button>
-              {tags.map(t => (
-                <button
-                  key={t._id}
-                  className={`tag-btn ${tag === t._id ? 'active' : ''}`}
-                  onClick={() => setParam('tag', t._id)}
-                >#{t._id} <span>{t.count}</span></button>
-              ))}
+              >
+                All Posts <span>{total}</span>
+              </button>
+              {Array.isArray(tags) &&
+                tags.map((t) => (
+                  <button
+                    key={t._id}
+                    className={`tag-btn ${tag === t._id ? 'active' : ''}`}
+                    onClick={() => setParam('tag', t._id)}
+                  >
+                    #{t._id} <span>{t.count}</span>
+                  </button>
+                ))}
             </div>
           </div>
           <div className="sidebar-card sidebar-cta">
             <h3>Start Writing</h3>
             <p>Share your knowledge with thousands of developers</p>
-            <Link to="/register" className="btn-primary btn-sm">Get Started Free</Link>
+            <Link to="/register" className="btn-primary btn-sm">
+              Get Started Free
+            </Link>
           </div>
         </aside>
 
         {/* Feed */}
         <main className="feed">
-          {search && <p className="search-result-label">Results for "<strong>{search}</strong>" — {total} posts</p>}
-          {tag && <p className="search-result-label">Posts tagged <strong>#{tag}</strong> — {total} posts</p>}
+          {search && (
+            <p className="search-result-label">
+              Results for "<strong>{search}</strong>" — {total} posts
+            </p>
+          )}
+          {tag && (
+            <p className="search-result-label">
+              Posts tagged <strong>#{tag}</strong> — {total} posts
+            </p>
+          )}
 
           {loading ? (
             <div className="loading-grid">
-              {[...Array(6)].map((_, i) => <div key={i} className="skeleton-card" />)}
+              {[...Array(6)].map((_, i) => (
+                <div key={i} className="skeleton-card" />
+              ))}
             </div>
           ) : posts.length === 0 ? (
             <div className="empty-state">
               <div className="empty-icon">📭</div>
               <h3>No posts found</h3>
               <p>Be the first to write about this!</p>
-              <Link to="/write" className="btn-primary">Write a Post</Link>
+              <Link to="/write" className="btn-primary">
+                Write a Post
+              </Link>
             </div>
           ) : (
             <>
               <div className="posts-grid">
-                {posts.map(p => <PostCard key={p._id} post={p} />)}
+                {posts.map((p) => (
+                  <PostCard key={p._id} post={p} />
+                ))}
               </div>
               {pages > 1 && (
                 <div className="pagination">
                   {[...Array(pages)].map((_, i) => (
                     <button
                       key={i}
-                      className={`page-btn ${page === i+1 ? 'active' : ''}`}
-                      onClick={() => setParam('page', i+1)}
-                    >{i+1}</button>
+                      className={`page-btn ${page === i + 1 ? 'active' : ''}`}
+                      onClick={() => setParam('page', i + 1)}
+                    >
+                      {i + 1}
+                    </button>
                   ))}
                 </div>
               )}
