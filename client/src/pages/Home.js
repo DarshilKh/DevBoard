@@ -59,10 +59,10 @@ const Home = () => {
       <section className="hero">
         <div className="hero-inner">
           <div className="hero-badge">Developer Community</div>
-          <h1 className="hero-title">
-            Where Developers<br />
-            <span className="gradient-text">Share & Grow</span>
-          </h1>
+         <h1 className="hero-title">
+  Where Developers<br />
+  <em>Share & Grow</em>
+</h1>
           <p className="hero-sub">
             Read, write, and explore dev articles. Share your knowledge with the world.
           </p>
