@@ -49,7 +49,7 @@ const PostDetail = () => {
 
   const avatar = post?.author?.avatar
     ? post.author.avatar
-    : `https://ui-avatars.com/api/?name=${encodeURIComponent(post?.author?.name || 'U')}&background=6366f1&color=fff&bold=true`;
+    : `https://ui-avatars.com/api/?name=${encodeURIComponent(post?.author?.name || 'U')}&background=72383d&color=efe9e1&bold=true`;
 
   if (loading) return <div className="full-loader"><div className="spinner" /></div>;
   if (!post) return null;

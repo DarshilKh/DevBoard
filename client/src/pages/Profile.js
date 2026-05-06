@@ -45,7 +45,7 @@ const Profile = () => {
     } finally { setLoading(false); }
   };
 
-  const currentAvatar = preview || `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name || 'U')}&background=6366f1&color=fff&bold=true`;
+  const currentAvatar = preview || `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name || 'U')}&background=72383d&color=efe9e1&bold=true`;
 
   return (
     <div className="profile-page">

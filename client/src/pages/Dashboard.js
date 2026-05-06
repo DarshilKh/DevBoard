@@ -27,7 +27,7 @@ const Dashboard = () => {
 
   const avatar = user?.avatar
     ? user.avatar
-    : `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name || 'U')}&background=6366f1&color=fff&bold=true`;
+    : `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name || 'U')}&background=72383d&color=efe9e1&bold=true`;
 
   const timeAgo = (date) => new Date(date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
 
